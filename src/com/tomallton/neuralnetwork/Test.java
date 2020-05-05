@@ -11,6 +11,10 @@ import com.tomallton.neuralnetwork.util.StringUtils;
 public class Test {
 
     public static void main(String[] args) {
+        cancerClassificationTest();
+    }
+
+    public static void cancerClassificationTest() {
         List<String> lines = FileUtils.readFile("data/cancer.csv");
 
         double[][] X = new double[lines.size()][];
@@ -28,7 +32,7 @@ public class Test {
         // normalize data
         MathUtils.normalize(X);
 
-        NeuralNetwork model = new NeuralNetwork(new Layer(X[0].length, ActivationFunction.SIGMOID), new Layer(25, ActivationFunction.SIGMOID), new Layer(15), new Layer(1));
+        NeuralNetwork model = new NeuralNetwork(new Layer(X[0].length, ActivationFunction.SIGMOID), new Layer(15, ActivationFunction.SIGMOID), new Layer(1));
 
         Pair<Pair<double[][], double[][]>, Pair<double[][], double[][]>> trainTestSplit = MathUtils.trainTestSplit(X, y);
 

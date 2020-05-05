@@ -1,6 +1,5 @@
 package com.tomallton.neuralnetwork;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,13 +20,8 @@ public class NeuralNetwork implements Function<double[], double[]> {
             Layer layer = layers[i];
             for (int j = 0; j < layer.getWeights().length; j++) {
                 if (layer.getWeights()[j] == null || layer.getWeights()[j].length == 0) {
-                    if (i == layers.length - 1) {
-                        // in this case last layer is just used to determine output size
-                        layers = Arrays.copyOfRange(layers, 0, layers.length - 1);
-                        break;
-                    } else {
-                        layer.getWeights()[j] = MathUtils.generate(layers[i + 1].getInputSize(), Math::random);
-                    }
+                    // last layer has same input and output size
+                    layer.getWeights()[j] = MathUtils.generate(i < layers.length - 1 ? layers[i + 1].getInputSize() : layer.getInputSize(), Math::random);
                 }
             }
         }
